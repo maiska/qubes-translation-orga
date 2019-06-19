@@ -1,5 +1,9 @@
-# qubes-translation-icons
+# Overview
 
+Hier is a repo for orga stuff regarding qubes os translation workflow proposal
+
+
+Translation Icons for marking orga issues
 - orga icon from [icon set](https://www.iconfinder.com/iconsets/business-management-3-4), [CC licence](https://creativecommons.org/licenses/by/3.0/)
 - misc icon from [icon set](https://www.iconfinder.com/iconsets/amenities-solid-ii), [CC licence](https://creativecommons.org/licenses/by/3.0/)
 - qubes os icon for OS translation related issues from [style-guide](https://www.qubes-os.org/doc/style-guide/)
