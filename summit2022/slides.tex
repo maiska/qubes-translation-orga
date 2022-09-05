@@ -1,0 +1,341 @@
+\documentclass{beamer}
+%\usetheme{Warsaw}
+%\usetheme{Madrid}
+\usetheme{Marburg}
+\usecolortheme{albatross}
+\setbeamercovered{transparent}
+\usepackage[english]{babel}
+
+% Title page details
+\title{Qubes OS Documentation Localization}
+\subtitle{Past, Present, Future}
+\author{m, Tobias Killer}
+\institute{}
+\date{September 10, 2022}
+
+\begin{document}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+%\begin{frame}
+%	\frametitle{Frames und Slides}
+%	\framesubtitle{Frames}
+%	\begin{itemize}
+%		\item<1> erster Punkt
+%		\item<2> zweiter Punkt
+%		\item<3> dritter Punkt
+%	\end{itemize}
+%	\begin{block}{Ein Standardblock}
+%	\end{block}
+%	\begin{exampleblock}{Ein Beispielblock}
+%	\end{exampleblock}
+%	\begin{alertblock}{Ein Alarmblock}
+%	\end{alertblock}
+%\end{frame}
+
+\AtBeginSection[]
+{
+\begin{frame}<beamer>
+\frametitle{Outline}
+\tableofcontents[currentsection]
+\end{frame}
+}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents
+\end{frame}
+
+\section{Introduction}
+
+\begin{frame}
+	\frametitle{Goals and no-goals}
+	\begin{itemize}
+		\item continuous translations of the Qubes OS website
+		\begin{itemize}
+			\item at least the documentation
+		\end{itemize}
+		\item This does NOT concern the software!
+	\end{itemize}
+\end{frame}
+
+%\section{Internationalization and localization}
+
+\begin{frame}
+	\frametitle{Internationalization and localization}
+	\begin{itemize}
+		\item Internationalization (i18n):
+		\begin{itemize}
+			\item making everything flexible and ready for translations
+		\end{itemize}
+		\item Localization (l10n):
+		\begin{itemize}
+			\item translation into a concrete language
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\section{Official Qubes OS Documentation}
+
+\begin{frame}
+	\frametitle{Official Qubes OS Documentation}
+	\begin{itemize}
+		\item bunch of Markdown and other files
+		\begin{itemize}
+			\item English only
+			\item split into several Git repositories
+			\begin{itemize}
+				\item qubesos.github.io (core pages)
+				\item qubes-doc (documentation pages)
+				\item qubes-hcl (Hardware Compatibility List data files)
+				\item qubes-posts
+				\item qubes-attachment
+			\end{itemize}
+		\end{itemize}
+		\item Github Pages + Jekyll + Liquid Template Language = static website
+	\end{itemize}
+\end{frame}
+
+%\section{Challenges}
+
+\begin{frame}
+	\frametitle{Challenges}
+	\begin{itemize}
+		\item Community effort
+		\begin{itemize}
+			\item It's done when it's done.
+			\item needs (more) manpower
+			\item translations unofficial
+		\end{itemize}
+		\item Security first
+		\begin{itemize}
+			\item avoid unknown third-party plugins
+			\item distrust translations
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Challenges (2)}
+	\begin{itemize}
+		\item internationalization
+		\begin{itemize}
+			\item difficult due to a continuously changing website
+			\item also vice versa
+		\end{itemize}
+		\item Markdown files
+		\begin{itemize}
+			\item YAML front matter
+			\item internal links
+			\begin{itemize}
+				\item anchors included
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Challenges (3)}
+	\begin{itemize}
+		\item URLs
+		\begin{itemize}
+			\item How to translate https://www.qubes-os.org/doc/system-requirements/\#recommended ?
+		\end{itemize}
+		\item lack of a language switcher
+		\item need of a platform for translators
+		\begin{itemize}
+			\item easy translations into arbitrary languages for non-developers
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\section{What have we done so far? The past}
+
+\begin{frame}
+	\frametitle{What have we done so far? The past}
+	\begin{itemize}
+		\item Transifex
+		\begin{itemize}
+			\item web platform for projects and translators making localization
+			\item line-by-line translation and review
+			\begin{itemize}
+				\item Markdown convention: one sentence per line (not enforceable)
+			\end{itemize}
+			\item scriptable upload and download
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{What have we done so far? The past (2)}
+	\begin{itemize}
+		\item Around 2015 …
+		\begin{itemize}
+			\item plain text files uploaded to Transifex
+			\begin{itemize}
+				\item (Markdown support being added later)
+			\end{itemize}
+			\item missing an infrastructure
+			\item missing a language switcher
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{What have we done so far? The past (3)}
+	\begin{itemize}
+		\item i18n: making Markdown files flexible (YAML front matter)
+%\begin{verbatim}
+%---
+%lang: en
+%layout: doc
+%permalink: /doc/how-to-copy-and-paste-text/
+%redirect_from:
+%- /doc/copy-paste/
+%- /en/doc/copy-paste/
+%- /doc/CopyPaste/
+%- /wiki/CopyPaste/
+%ref: 196
+%title: How to copy and paste text
+%---
+%\end{verbatim}
+\begin{exampleblock}{qubes-doc/user/how-to-guides/how-to-copy-and-paste-text.md}
+\texttt{$-$$-$$-$\\
+\alert{lang: en}\\
+layout: doc\\
+permalink: /doc/how-to-copy-and-paste-text/\\
+redirect\_from:\\
+$-$ /doc/copy-paste/\\
+$-$ /en/doc/copy-paste/\\
+$-$ /doc/CopyPaste/\\
+$-$ /wiki/CopyPaste/\\
+\alert{ref: 196}\\
+title: How to copy and paste text\\
+$-$$-$$-$}
+\end{exampleblock}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{What have we done so far? The past (4)}
+	\begin{itemize}
+		\item i18n: making HTML files flexible
+		\begin{exampleblock}{qubesos.github.io/\_includes/head.html}
+%\begin{verbatim}
+%<!-- Localization -->
+%{% if page.lang %}
+%  {% assign pagelang = page.lang %}
+%{% else %}
+%  {% assign pagelang = "en" %}
+%{% endif %}
+%{% case pagelang %}
+%  {% when "ar", "arc", "dv", "fa", "ha", "he", "khw", "ks", "ku", "ps", "ur", "yi" %}
+%    {% assign textdir = "rtl" %}
+%  {% else %}
+%    {% assign textdir = "ltr" %}
+%{% endcase %}
+%<html lang="{{ pagelang }}" dir="{{ textdir }}">
+%\end{verbatim}
+\texttt{$<$!$-$$-$ Localization $-$$-$$>$\\
+\{\% if \alert{page.lang} \%\}\\
+\ \ \{\% assign \alert{pagelang} = \alert{page.lang} \%\}\\
+\{\% else \%\}\\
+\ \ \{\% assign pagelang = "en" \%\}\\
+\{\% endif \%\}\\
+\{\% case pagelang \%\}\\
+\ \ \{\% when "ar", "arc", "dv", "fa", "ha", "he", […] \%\}\\
+\ \ \ \ \{\% assign textdir = "rtl" \%\}\\
+\ \ \{\% else \%\}\\
+\ \ \ \ \{\% assign textdir = "ltr" \%\}\\
+\{\% endcase \%\}\\
+$<$html lang="\{\{ \alert{pagelang} \}\}" dir="\{\{ textdir \}\}"$>$}
+\end{exampleblock}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{What have we done so far? The past (5)}
+	\begin{itemize}
+		\item many ideas/ problems conceptually solved
+		\begin{itemize}
+			\item How to make localization comfortable, easy and error-unprone for translators?
+			\begin{itemize}
+				\item automatic internal link translation
+				\item automatic insertion of untranslated anchors into translated files (no translation of anchors needed)
+			\end{itemize}
+			\item URL example for German: https://www.qubes-os.org\alert{/de}/doc/system-requirements/\#recommended
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{What have we done so far? The past (6)}
+	\begin{itemize}
+		\item a dedicated mailing list (qubes-translation)
+		\item a homemade language switcher
+		\item Python, Bash and Ruby scripts
+		\begin{itemize}
+			\item YAML front matter merge of translated and untranslated version
+		\end{itemize}
+		\item A comprehensive set of rules for translators/reviewers
+		\begin{itemize}
+			\item dos and don'ts
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\section{Where are we? The present}
+
+\begin{frame}
+	\frametitle{Read The Docs}
+	\begin{itemize}
+		\item RTD - cons and pros
+		\begin{itemize}
+			\item versioned documentation
+			\item supported translation
+			\item transifex support
+		\end{itemize}
+		\item conversion 
+		\begin{itemize}
+			\item markdown to rst
+			\item postprocessing rst files to fix broken links, cross-referencing
+%			\item explain cross-referencing in sphinx 
+		
+		\end{itemize}
+		\item transifex workflow
+		\begin{itemize}
+			\item transifex client shit
+		\end{itemize}
+		\item online RT documentation 
+		\item new qubes-os website contents
+		
+		
+	\end{itemize}
+\end{frame}
+
+\section{Quo vadis? The future}
+
+\begin{frame}
+	\frametitle{Quo vadis? The future}
+	\begin{itemize}
+		\item official decision
+		\item Testing and fixing bugs phase
+		\item go live
+		\item assign to translate with transifex walktrough
+		\item official developer documentation already on RTD translation workflow proposal
+		\item community documentation translation workflow proposal
+		\item official website translation (list posts and news)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Thank you!}
+	\begin{center}
+		Questions? Suggestions? 
+	\end{center}
+\end{frame}
+
+\end{document}
+
