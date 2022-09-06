@@ -70,7 +70,7 @@
 \begin{frame}
 	\frametitle{Official Qubes OS Documentation}
 	\begin{itemize}
-		\item into several Git repositories
+		\item several Git repositories
 		\begin{itemize}
 				\item qubesos.github.io (core pages)
 				\item qubes-doc (documentation pages)
@@ -144,9 +144,8 @@
 
 \begin{frame}
 	\frametitle{What have we done so far? The past (2)}
-		\begin{itemize}
-			\item plain text files uploaded to Transifex
-			\item language switcher
+	\begin{itemize}
+		\item plain text files uploaded to Transifex
 	\end{itemize}
 \end{frame}
 
@@ -188,7 +187,7 @@ $-$$-$$-$}
 \begin{frame}
 	\frametitle{What have we done so far? The past (4)}
 	\begin{itemize}
-		\item i18n: HTML  files indexable for different localizations
+		\item i18n: HTML files flexible for different languages
 		\begin{exampleblock}{qubesos.github.io/\_includes/head.html}
 %\begin{verbatim}
 %<!-- Localization -->
@@ -212,12 +211,12 @@ $-$$-$$-$}
 \ \ \{\% assign pagelang = "en" \%\}\\
 \{\% endif \%\}\\
 \{\% case pagelang \%\}\\
-\ \ \{\% when "ar", "arc", "dv", "fa", "ha", "he", […] \%\}\\
+\ \ \{\% when "ar", "arc", "dv", "fa", […] \%\}\\
 \ \ \ \ \{\% assign textdir = "rtl" \%\}\\
 \ \ \{\% else \%\}\\
 \ \ \ \ \{\% assign textdir = "ltr" \%\}\\
 \{\% endcase \%\}\\
-$<$html lang="\{\{ \alert{pagelang} \}\}" dir="\{\{ textdir \}\}"$>$}
+$<$html lang="\{\{\alert{pagelang}\}\}" dir="\{\{textdir\}\}"$>$}
 \end{exampleblock}
 	\end{itemize}
 \end{frame}
@@ -240,7 +239,7 @@ $<$html lang="\{\{ \alert{pagelang} \}\}" dir="\{\{ textdir \}\}"$>$}
 		\item a dedicated mailing list (qubes-translation)
 		\item a homemade language switcher
 		\item Python, Bash and Ruby scripts
-		\item A comprehensive set of rules for translators/reviewers
+		\item a comprehensive set of rules for translators/reviewers
 	\end{itemize}
 \end{frame}
 
