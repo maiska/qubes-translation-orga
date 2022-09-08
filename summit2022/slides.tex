@@ -210,13 +210,8 @@ $-$$-$$-$}
 \{\% else \%\}\\
 \ \ \{\% assign pagelang = "en" \%\}\\
 \{\% endif \%\}\\
-\{\% case pagelang \%\}\\
-\ \ \{\% when "ar", "arc", "dv", "fa", […] \%\}\\
-\ \ \ \ \{\% assign textdir = "rtl" \%\}\\
-\ \ \{\% else \%\}\\
-\ \ \ \ \{\% assign textdir = "ltr" \%\}\\
-\{\% endcase \%\}\\
-$<$html lang="\{\{\alert{pagelang}\}\}" dir="\{\{textdir\}\}"$>$}
+\ […]\\
+$<$html lang="\{\{\alert{pagelang}\}\}" dir="[…]"$>$}
 \end{exampleblock}
 	\end{itemize}
 \end{frame}
