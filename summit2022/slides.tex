@@ -72,13 +72,13 @@
 	\begin{itemize}
 		\item several Git repositories
 		\begin{itemize}
-				\item qubesos.github.io (core pages)
-				\item qubes-doc (documentation pages)
-				\item qubes-hcl (Hardware Compatibility List data files)
-				\item qubes-posts
-				\item qubes-attachment
+			\item qubesos.github.io (core pages)
+			\item qubes-doc (documentation pages)
+			\item qubes-hcl (Hardware Compatibility List data files)
+			\item qubes-posts
+			\item qubes-attachment
 		\end{itemize}
-		\item Github Pages + Jekyll + Liquid Template Language = static website
+		\item Github Pages + Jekyll + Liquid Template Language + Source Files = static website
 	\end{itemize}
 \end{frame}
 
@@ -118,9 +118,9 @@
 	\frametitle{Challenges (3)}
 	\begin{itemize}
 		\item URLs
-		\begin{itemize}
-			\item How to translate https://www.qubes-os.org/doc/system-requirements/\#recommended ?
-		\end{itemize}
+		\begin{exampleblock}{How to localize this link?}
+			\scriptsize{https://www.qubes-os.org/doc/system-requirements/\#recommended}
+		\end{exampleblock}
 		\item lack of a language switcher
 	\end{itemize}
 \end{frame}
@@ -219,12 +219,15 @@ $<$html lang="\{\{\alert{pagelang}\}\}" dir="[…]"$>$}
 \begin{frame}
 	\frametitle{What have we done so far? The past (5)}
 	\begin{itemize}
-			\item How to make localization comfortable, easy and error-unprone for translators?
-			\begin{itemize}
-				\item automatic internal link translation
-				\item automatic insertion of untranslated anchors into translated files (no translation of anchors needed)
-			\end{itemize}
-			\item URL example for German: https://www.qubes-os.org\alert{/de}/doc/system-requirements/\#recommended
+		\item How to make localization comfortable, easy and error-unprone for translators?
+		\begin{itemize}
+			\item automatic internal link localization
+			\item automatic insertion of unlocalized anchors into localized files (no localization of anchors needed)
+		\end{itemize}
+		\item URL example for German
+		\begin{exampleblock}{How to localize this link?}
+			\scriptsize{https://www.qubes-os.org\alert{/de}/doc/system-requirements/\#recommended}
+		\end{exampleblock}
 	\end{itemize}
 \end{frame}
 
