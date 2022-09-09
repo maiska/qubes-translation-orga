@@ -3,8 +3,21 @@
 %\usetheme{Madrid}
 \usetheme{Marburg}
 \usecolortheme{albatross}
+\color{yellow}
 \setbeamercovered{transparent}
+\usepackage{listings}
 \usepackage[english]{babel}
+\usepackage{color}
+\usepackage{caption}
+\captionsetup[figure]{labelformat=empty}
+\lstset{
+%	basicstyle=\footnotesize\ttfamily,
+	basicstyle=\tiny\color{white}\ttfamily,
+	frame=single,
+	extendedchars=true,
+	escapechar={@},
+}
+
 
 % Title page details
 \title{Qubes OS Documentation Localization}
@@ -48,19 +61,23 @@
 	\tableofcontents
 \end{frame}
 
-\section{Introduction \& Welcome (m) )}
+\section{Introduction \& Welcome}
 
 \begin{frame}
 	\frametitle{Introduction}
 	\begin{itemize}
-		\item Goal: continuous reliable translation of the Qubes OS documentation
-		\item Internationalization (i18n):
+		\item Goal: continuous reliable localization of the Qubes OS documentation
+		\item Translation (tl8n)
 		\begin{itemize}
-			\item making everything flexible and ready for translations
+			\item transferring the meaning of a text from one language into another
 		\end{itemize}
-		\item Localization (l10n):
+		\item Internationalization (i18n)
 		\begin{itemize}
-			\item translation into a concrete language
+			\item making everything flexible and ready for localization
+		\end{itemize}
+		\item Localization (l10n)
+		\begin{itemize}
+			\item translation into a concrete language \& cultural context (restroom vs bathroom)
 		\end{itemize}
 	\end{itemize}
 \end{frame}
@@ -70,15 +87,17 @@
 \begin{frame}
 	\frametitle{Official Qubes OS Documentation}
 	\begin{itemize}
-		\item several Git repositories
+		\item Several Git repositories
 		\begin{itemize}
-			\item qubesos.github.io (core pages)
-			\item qubes-doc (documentation pages)
-			\item qubes-hcl (Hardware Compatibility List data files)
-			\item qubes-posts
-			\item qubes-attachment
+				\item qubesos.github.io (core pages)
+				\item qubes-doc (documentation pages)
+				\item qubes-hcl (Hardware Compatibility List data files)
+				\item qubes-posts
+				\item qubes-attachment
 		\end{itemize}
 		\item Github Pages + Jekyll + Liquid Template Language + Source Files = static website
+
+		
 	\end{itemize}
 \end{frame}
 
@@ -98,7 +117,7 @@
 \begin{frame}
 	\frametitle{Challenges (2)}
 	\begin{itemize}
-		\item internationalization
+		\item Internationalization
 		\begin{itemize}
 			\item difficult due to a continuously changing website
 			\item also vice versa
@@ -119,9 +138,9 @@
 	\begin{itemize}
 		\item URLs
 		\begin{exampleblock}{How to localize this link?}
-			\scriptsize{https://www.qubes-os.org/doc/system-requirements/\#recommended}
-		\end{exampleblock}
-		\item lack of a language switcher
+		\scriptsize{https://www.qubes-os.org/doc/system-requirements/\#recommended}
+	\end{exampleblock}
+		\item Lack of a language switcher
 	\end{itemize}
 \end{frame}
 
@@ -144,15 +163,15 @@
 
 \begin{frame}
 	\frametitle{What have we done so far? The past (2)}
-	\begin{itemize}
-		\item plain text files uploaded to Transifex
+		\begin{itemize}
+			\item Plain text files uploaded to Transifex
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{What have we done so far? The past (3)}
 	\begin{itemize}
-		\item i18n: Markdown files indexable for different localizations
+		\item i18n: Markdown files indexable for different languages
 %\begin{verbatim}
 %---
 %lang: en
@@ -187,7 +206,7 @@ $-$$-$$-$}
 \begin{frame}
 	\frametitle{What have we done so far? The past (4)}
 	\begin{itemize}
-		\item i18n: HTML files flexible for different languages
+		\item i18n: HTML  files indexable for different localizations
 		\begin{exampleblock}{qubesos.github.io/\_includes/head.html}
 %\begin{verbatim}
 %<!-- Localization -->
@@ -210,8 +229,13 @@ $-$$-$$-$}
 \{\% else \%\}\\
 \ \ \{\% assign pagelang = "en" \%\}\\
 \{\% endif \%\}\\
-\ […]\\
-$<$html lang="\{\{\alert{pagelang}\}\}" dir="[…]"$>$}
+\{\% case pagelang \%\}\\
+\ \ \{\% when "ar", "arc", "dv", "fa", "ha", "he", […] \%\}\\
+\ \ \ \ \{\% assign textdir = "rtl" \%\}\\
+\ \ \{\% else \%\}\\
+\ \ \ \ \{\% assign textdir = "ltr" \%\}\\
+\{\% endcase \%\}\\
+$<$html lang="\{\{ \alert{pagelang} \}\}" dir="\{\{ textdir \}\}"$>$}
 \end{exampleblock}
 	\end{itemize}
 \end{frame}
@@ -234,128 +258,440 @@ $<$html lang="\{\{\alert{pagelang}\}\}" dir="[…]"$>$}
 \begin{frame}
 	\frametitle{What have we done so far? The past (6)}
 	\begin{itemize}
-		\item a dedicated mailing list (qubes-translation)
-		\item a homemade language switcher
+		\item A dedicated mailing list (qubes-translation)
+		\item A homemade language switcher
 		\item Python, Bash and Ruby scripts
-		\item a comprehensive set of rules for translators/reviewers
+		\item A comprehensive set of rules for translators/reviewers
+	\end{itemize}
+\end{frame}
+
+
+
+
+
+\section{Where are we? The present}
+
+\begin{frame}
+	\frametitle{Read The Docs community}
+	\begin{itemize}
+		\item Pros and Cons
+		\item Conversion from Markdown to ReStructuredText (RST)
+		\item Local development
+		\item Transifex workflow
+		\item Deployment
+		\item Revisited Qubes OS website contents
 	\end{itemize}
 \end{frame}
 
 
 \begin{frame}
-	\frametitle{Localization of the official Qubes OS documentation (m)}
-	\framesubtitle{As part of the official Qubes OS Website}
+	\frametitle{Read The Docs 4 Qubes doc - pros and cons}
+	\begin{itemize}
+		\item Pros
+		\begin{itemize}
+			\item Versioning $\rightarrow$  release specific documentation
+			\item Sphinx inherited goodies: 
+			\begin{itemize}
+				\item internationalization \& localization support out of the box, PDF \& EPUB generation, easy local development environment 
+			\end{itemize}
+			\item Continuous documentation deployment
+			\item 1 CVE  \tiny{\footnote{\tiny{https://www.cvedetails.com/vendor/20051/Readthedocs.html}}}
+		\end{itemize}
+		\item Cons 
+		\begin{itemize}
+			\item Different designs
+			\item Two different tech stacks for website \& documentatoin
+			\item Getting familiar with a new markup language
+			\item Minor buggy deployment issues
+			\item Advertising \& analytics \tiny{\footnote{\tiny{https://docs.readthedocs.io/en/latest/advertising/advertising-details.html\#analytics}}}
+		\end{itemize}
+		
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+	\frametitle{Read The Docs - MD2RST }
+	\begin{itemize}
+		\item Support for Markdown via MkDocs generator, localization not supported \tiny{\footnote{\tiny{https://docs.readthedocs.io/en/stable/localization.html}}}
+		\large{\item Support of RST via sphinx generator} \tiny{\footnote{\tiny{https://www.sphinx-doc.org/en/master/}}}
+		
+		\tiny{
+		\large{\item Using pandoc}
+		\begin{exampleblock}{pandoc}
+			\begin{lstlisting}[language=bash]
+$ pandoc doc.md --from markdown --to rst -s -o doc.rst
+			\end{lstlisting}
+		\end{exampleblock}
+		}
+		
+		\large{\item Scripted pypandoc \& post-processing}
+		\begin{itemize}
+			\item cross-referencing using sphinx \textbf{:doc:} and \textbf{:ref:} roles
+			\item further handling of Jekyll specific permalinks
+				\tiny{
+					\begin{exampleblock}{md2rst}
+					\begin{lstlisting}[language=bash]
+$ python md2rst.py --config config.toml
+					\end{lstlisting}
+			\end{exampleblock}
+				}
+		\end{itemize}
+		\item Run only once, fix errors \& deploy 
+		
+	\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+	\frametitle{Read The Docs - local development }
+%	\begin{itemize}
+%		\item Easy as in
+%		\begin{lstlisting}[language=Python]
+		\begin{exampleblock}{render locally}
+		\begin{lstlisting}[language=bash]
+$ sphinx-view . -c conf.py
+		\end{lstlisting}
+		\end{exampleblock}
+	
+		\begin{exampleblock}{conf.py}
+		\tiny{
+		\begin{lstlisting}[language=python]
+...
+
+html_static_path = ['attachment/doc']
+extensions = ['sphinx.ext.autosectionlabel']
+autosectionlabel_prefix_document = True
+source_suffix = {'.rst': 'restructuredtext'}
+templates_path = ['_templates']
+root_doc = "index"
+exclude_patterns = ['_dev/*','attachment/*','**/*.txt']
+html_theme = 'default'		
+epub_show_urls = 'footnote'
+latex_show_urls ='footnote'
+
+...	
+		\end{lstlisting}
+		}
+		\end{exampleblock}
+		
+%	\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+	\frametitle{Read The Docs - sphinx build log }
+		\begin{exampleblock}{running sphinx v4.5.0 ...}
+\tiny{
+		\begin{lstlisting}
+WARNING: Pygments lexer name 'shell_session' is not known
+WARNING: undefined label:
+WARNING: unknown document
+WARNING: document isn't included in any toctree
+WARNING: Inline literal start-string without end-string.
+WARNING: Block quote ends without a blank line; unexpected unindent.
+WARNING: Title underline too short.
+ERROR: Unexpected indentation.
+ERROR: Error in "figure" directive:
+		\end{lstlisting}
+	}
+\end{exampleblock}	
+
+	\begin{exampleblock}{linkcheck}
+\tiny{
+	\begin{lstlisting}[language=bash]
+$ sphinx-build -b linkcheck . _build/linkcheck
+	\end{lstlisting}
+}
+Output: $build/linkcheck/output.(json|txt)$
+\end{exampleblock}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Read The Docs - Transifex workflow}
+%	\begin{itemize}
+%		\item conf.py
+		\begin{exampleblock}{conf.py}
+	\tiny{
+		\begin{lstlisting}[language=python]
+...
+
+gettext_uuid=True
+gettext_compact=False	
+locale_dirs = ['_translated']	
+
+...	
+		\end{lstlisting}
+	}
+\end{exampleblock}
+
+	\begin{exampleblock}{sphinx localization}
+	\tiny{
+		\begin{lstlisting}[language=bash]
+$ sphinx-build -b gettext . _build/gettext
+		\end{lstlisting}
+	}
+\end{exampleblock}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+	\frametitle{Read The Docs - scripted Transifex workflow }
+%		\begin{itemize}
+%			\item Old tx client (extinct in Nov 2022)
+		\begin{exampleblock}{initial configuration}
+			\tiny{
+				\begin{lstlisting}[language=bash]
+$ tx init --token 1/XXX --no-interactive;
+$ mkdir _translated; (defined in conf.py as locale_dir )
+				\end{lstlisting}
+			}
+		\end{exampleblock}
+	
+			\begin{exampleblock}{create translatable files}
+		\tiny{
+			\begin{lstlisting}[language=bash]
+$ sphinx-build -b gettext . _translated/_build/gettext;
+			\end{lstlisting}
+		}
+	\end{exampleblock}
+
+			\begin{exampleblock}{transifex mapping, push \& pull}
+	\tiny{
+		\begin{lstlisting}[language=bash]
+$ tx config mapping-bulk --project  qubes --file-extension '.pot' \
+--source-file-dir _translated/_build/gettext/ \
+--source-lang en --type PO \
+--expression '_translated/<lang>/LC_MESSAGES/{filepath}/{filename}.po' \
+--execute;
+$ tx push --source;
+		\end{lstlisting}
+	}
+\end{exampleblock}
+			\begin{exampleblock}{local build}
+	\tiny{
+		\begin{lstlisting}[language=bash]
+$ tx pull -l de;
+$ sphinx-build -b html -D language=de . _translated/_build/html/de -v -a;
+		\end{lstlisting}
+	}
+\end{exampleblock}
+
+%		\end{itemize}
+	\end{frame}
+
+
+
+\begin{frame}[fragile]
+	\frametitle{Read The Docs - deployment }
+		\begin{exampleblock}{.readthedocs.yaml}
+			\tiny{
+				\begin{lstlisting}[language=bash]
+version: 2
+
+build:
+ os: "ubuntu-22.04"
+ tools:
+  python: "3.10"
+	  
+sphinx:
+ builder: html
+ configuration: conf.py
+ fail_on_warning: false
+	
+python:
+ install:
+  - requirements: requirements.txt
+	  
+formats:
+ - pdf
+ - epub
+				\end{lstlisting}
+			}
+			
+		\end{exampleblock}
+%	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{What do we have till now?}
+	
+	\begin{columns}[c]
+		
+		% create the column with the first image, that occupies
+		% half of the slide
+		\begin{column}{.5\textwidth}
+			\begin{figure}
+				\centering
+				\includegraphics[scale=0.45]{pix/status-a.png}
+				\caption{\tiny{1. Original \textbf{qubes-doc} repo Markdown contents}}
+			\end{figure}      
+		\end{column}
+		
+		% create the column with the second image, that also
+		% occupies half of the slide
+		\begin{column}{.5\textwidth}
+			\begin{figure}
+				\centering
+				\includegraphics[scale=0.45]{pix/status-b.png}
+				\caption{\tiny{2a. Converted \textbf{qubes-doc} repo RST contents}}
+			\end{figure}
+		\end{column}
+		
+	\end{columns}
 	\begin{figure}
-		\includegraphics[width=\linewidth]{pix/mdworkflow.png}
-		\caption{Localization of the official Qubes OS documentation workflow}
-		\label{fig:mdworkflow}
+		\includegraphics[scale=0.45]{pix/status-c.png}
+		\caption{\tiny{2b. Localized content downloaded from Transifex}}
+	\end{figure}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Read The Docs - translation management }
+	\begin{enumerate}
+		\item (A) Import qubes-rst-doc project with English as default language
+		\item (B) Manually import the same qubes-rst-doc repo containing the pulled translations from Transifex with Non-English as default language
+	\end{enumerate}
+	\begin{figure}
+		\includegraphics[scale=0.15]{pix/import-a-repository.png}
+		\caption{Source \footnote{https://docs.readthedocs.io/en/stable/intro/import-guide.html}}
+		\label{fig:rtd-import}
+	\end{figure}
+	
+\end{frame}
+
+
+\begin{frame}[fragile]
+	\frametitle{Read The Docs - translation management }
+	\begin{enumerate}
+		\setcounter{enumi}{2}
+		\item In (A) add the new manually imported repo (B) as a translation 
+		\item Enjoy
+	\end{enumerate}
+	\begin{figure}
+		\includegraphics[scale=0.15]{pix/translation-rtd.png}
+		\label{fig:rtd-r}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Read The Docs - current status \tiny{\footnote{\tiny{https://current-qubes-docrtd.readthedocs.io/en/latest/}}}}
+	\begin{figure}
+		\includegraphics[scale=0.25]{pix/rtd-1.png}
+		\label{fig:rtd-1}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Read The Docs - current status \tiny{\footnote{\tiny{https://current-qubes-docrtd.readthedocs.io/de/latest/}}}}
+	\begin{figure}
+		\includegraphics[scale=0.25]{pix/rtd-2.png}
+		\label{fig:rtd-2}
 	\end{figure}
 \end{frame}
 
 
 
 \begin{frame}
-	\frametitle{Continuous localization of the official Qubes OS documentation (m)}
-	\framesubtitle{As part of the official Qubes OS Website}
+	\frametitle{Continuous localization of the official Qubes OS documentation}
+	\framesubtitle{As RestructredText on ReadTheDocs}
 	\begin{itemize}
-		\item TODO a pic m
-	\end{itemize}	
-
+		\item Old vs new transifex client (OR)
+		 Use Transifex Integration App \tiny{\footnote{\tiny{https://github.com/apps/transifex-integration}}} \large{(not tested)}
+		\large{\begin{itemize}
+				\item Transifex authentication on Github
+				\item Github repository to Transifex project
+				\item files \& automated action selection
+		\end{itemize}}			
+		\item Build \& deploy documentation on every commit on RtD
+	\end{itemize}
+	
 \end{frame}
 
 
 \begin{frame}
-	\frametitle{Outlook for Markdown Qubes OS documentation (m)}
-	\framesubtitle{As part of the official Qubes OS Website}
-	
+	\frametitle{Read The Docs - nice to haves atm}
+	\begin{enumerate}
+		\item Liquid vs Jinja Templating
+		\item Sphinx-reredirects extension
+	\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Localization of the official Qubes OS documentation}
+	\framesubtitle{As part of the official Qubes OS Website as with Markdown}
+	%	\begin{figure}
+		%		\includegraphics[width=\linewidth]{pix/mdworkflow.png}
+		%		\caption{Localization of the official Qubes OS documentation workflow}
+		%		\label{fig:mdworkflow}
+		%	\end{figure}
+	\begin{enumerate}
+		\item Prepare, create tx configuration and push
+		\item Pull and post-process translations (OR)
+		Use Transifex Integration App and post-process translations	
+		\item Build \& deploy documentation 
+	\end{enumerate}
+	\bigskip
 	\begin{itemize}
+		\item Post-processing step after pulling translations (°\`\_´°)		
 		\item Still a viable way forward
 		\item Can be used for localization of the website
-		\item TODOs:
-		\begin{itemize}
-			\item 
-		\end{itemize}
-	\end{itemize}
-
-
-\end{frame}
-
-\section{Where are we? The present}
-
-\begin{frame}
-	\frametitle{Read The Docs (m)}
-	\begin{itemize}
-		\item RTD - cons and pros
-		\begin{itemize}
-			\item versioned documentation
-			\item supported translation
-			\item transifex support
-		\end{itemize}
-		\item conversion 
-		\begin{itemize}
-			\item markdown to rst
-			\item postprocessing rst files to fix broken links, cross-referencing
-%			\item explain cross-referencing in sphinx 
-		
-		\end{itemize}
-		\item transifex workflow
-		\begin{itemize}
-			\item transifex client shit
-		\end{itemize}
-		\item online RT documentation 
-		\item new qubes-os website contents
-		
-		
 	\end{itemize}
 \end{frame}
-
-\begin{frame}
-	\frametitle{Continuous localization of the official Qubes OS documentation (m)}
-	\framesubtitle{As RST on RTD}
-	\begin{itemize}
-		\item TODO a pic m
-	\end{itemize}	
-	
-\end{frame}
-
 
 \section{Quo vadis? The future}
 
 \begin{frame}
-	\frametitle{Looking forward (m)}
-	\begin{itemize}
-		\item official decision
+	\frametitle{Looking forward}
+	\begin{enumerate}
+		\item Official decision - RtD/RST or github-pages/Markdown?
 		\item Testing and fixing bugs phase
-		\item go live
-		\item assign to translate with transifex walktrough
-		\item official developer documentation already on RTD translation workflow proposal
-		\item community documentation translation workflow proposal
-		\item official website translation (pages, perhaps even posts)
-	\end{itemize}
+		\item Qubes OS documentation hosted on RTD/github-pages
+		\item Transifex translation
+		\item Localized documentation hosted on RTD/github-pages
+		\item Qubes OS official website localization (pages, perhaps even posts)
+		\item Community documentation localization
+	\end{enumerate}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Specific tasks (1)(m)}
+	\frametitle{Specific tasks (sample)}
 	\begin{itemize}
-		\item Clean up the qubes os transifex project vocabularies
-		\item Mark the uploaded files in Priority list as urgent
-		\item Official translation Guidelines
-		\item Translation FAQ
-		\item Translation glossary
-		\item Create github issue label translation
-		\item Create translation issue template
+		\item ReStructuredText documentation guide
+		\item Localization FAQ, glossary \& guidelines
+		\item Create github issue label/project localization
+		\item Create localization issue template
 		\item Create language specific documentation file inside the qubes-translation submodule for the specific language to be maintained by translators as a README.md Refer to it from the general language specific guidelines
 		\item Update the general contribution guidelines
 		\item Create a localization brief
-		\item Create tutorial vids for translating/maintating
+		\item Clean up the qubes os transifex project vocabularies
+		\item Create tutorial vids for translating/maintaining
 		
 	\end{itemize}
 \end{frame}
 
+
+\begin{frame}
+	\frametitle{We need you!}
+	\begin{center}
+		Get in touch! 
+		\bigskip
+		Reach out via the translation mailing list \textbf{qubes-translation@googlegroups.com}
+	\end{center}
+\end{frame}
+
+
+
 \begin{frame}
 	\frametitle{Thank you!}
 	\begin{center}
-		Questions? Suggestions? 
+		Discussion, questions, suggestions, critique are welcome!
 	\end{center}
 \end{frame}
 
